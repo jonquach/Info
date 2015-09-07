@@ -14,14 +14,14 @@ var mongoose = require('mongoose');
 var databaseURI = 'mongodb://localhost/test';
 // TODO: need to use process.env.NODE_ENV
 
-mongoose.connect(databaseURI, function (error) {
-    if (error) {
-        console.log(databaseURI + ' connection error. ', error);
-        throw (error);
-    } else {
-        console.log(databaseURI + ' connected.');
-    }
-})
+// mongoose.connect(databaseURI, function (error) {
+//     if (error) {
+//         console.log(databaseURI + ' connection error. ', error);
+//         throw (error);
+//     } else {
+//         console.log(databaseURI + ' connected.');
+//     }
+// })
 
 var app = express();
 
