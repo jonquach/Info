@@ -4,7 +4,7 @@
   "description": "Provide user internet footprint",
   "main": "server.js",
   "scripts": {
-    "postinstall": "bower install",
+    "postinstall": "bower cache clean && bower install",
     "start": "node ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
