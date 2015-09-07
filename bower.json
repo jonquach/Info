@@ -1,0 +1,29 @@
+{
+  "name": "info",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jonquach/Info",
+  "authors": [
+    "Jonathan Quach <kwach.yami@gmail.com>"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vendors",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "1.11.x",
+    "bootstrap": "~3.1.1",
+    "angular-mocks": "~1.4.0",
+    "angular-resource": "~1.4.0",
+    "angular-route": "~1.4.0",
+    "angular-animate": "1.4.x",
+    "angular": "~1.4.0"
+  }
+}
