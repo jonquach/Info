@@ -4,9 +4,9 @@
   "description": "Provide user internet footprint",
   "main": "server.js",
   "scripts": {
-    "postinstall": "bower cache clean && bower install",
     "start": "node ./bin/www",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "bower cache clean && bower install"
   },
   "repository": {
     "type": "git",
