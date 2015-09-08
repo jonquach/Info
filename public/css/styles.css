@@ -106,7 +106,11 @@ a:focus {
 
 body {
   font: normal 14px/20px 'Open Sans', sans-serif;
-  background: url('https://2.bp.blogspot.com/-QCNLvg32ulU/VaOWslE-aXI/AAAAAAAAGAc/KYWYae8-hFA/s1600/background.jpg') top/cover no-repeat;
+  background: url('https://2.bp.blogspot.com/-QCNLvg32ulU/VaOWslE-aXI/AAAAAAAAGAc/KYWYae8-hFA/s1600/background.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   color: #333;
 }
 
@@ -119,6 +123,10 @@ body {
   position: relative;
   overflow: hidden;
   background: url('https://2.bp.blogspot.com/-QmmNQfxkJuY/VaOWtdGCmKI/AAAAAAAAGAo/NM6IBuYRTHM/s1600/background2.jpg') top/cover no-repeat;
+  /*-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;*/
 }
 
 .right-menu {
