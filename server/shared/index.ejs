@@ -82,13 +82,15 @@
   // successful.  See statusChangeCallback() for when this call is made.
   function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me?fields=name,email,age_range', function(response) {
+    FB.api('/me?fields=name,email,age_range,birthday', function(response) {
       console.log('Successful login for: ' + response.name);
       console.log(JSON.stringify(response));
       document.getElementById('status').innerHTML =
-        'Thanks for logging in, ' + response.name + '!';
-      $('.username').text(response.name);
+        'Thanks for logging in, ';
+      $('.username').text(response.name + ' !');
+      $('.name').text(response.name);
       $('.user-email').text(response.email);
+      $('.user-email').attr('href', 'mailto:' + response.email);
       $('.mailto').attr('href', 'mailto:' + response.email)
       $('.age-range').text(response.age_range.max + ' years old');
     });
@@ -108,39 +110,7 @@
     <div class="dot"></div>
   </div>
 
-  <!-- Navbar -->
-  <!-- <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/"><%= title %></a>
-      </div>
-
-      <div class="collapse navbar-collapse" id="navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li><a href="#champions">Champions</a></li>
-        </ul>
-        <ul class="nav navbar-nav">
-          <li><a href="#about">About</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav> -->
   <div ng-view></div>
-
-  <!-- Facebook like and share -->
-
-  <!-- <div
-  class="fb-like"
-  data-share="true"
-  data-width="450"
-  data-show-faces="true">
-  </div> -->
 
   <!-- Profile overview -->
   <div class="wrap">
@@ -157,19 +127,21 @@
     <h2 class="username"></h2>
     <span class="info">
       <em>CS Student</em>
-      <em>France, vitry</em>
+      <em>France</em>
       <em class="age-range">20 years old</em>
     </span>
     <span class="info">
       <em class="user-email"></em>
     </span>
   </li>
+
 </ul>
     <div class="profile open animated zoomIn">
       <div class="avatar">
         <div class="bubble">
+          <div id="status"></div>
           <h3 class="username"></h3>
-          <a class="user-email" href="#"></a>
+          <a class="user-email" href=""></a>
         </div>
 
       </div>
@@ -200,39 +172,39 @@
   </div>
 
   <!--End Content-->
-  <div class="footer">
+  <!-- <div class="footer">
     <a href="" target="_blank"><i class="fa fa-link"></i><span>Website</span></a>
     <a href="" target="_blank"><i class="fa fa-codepen"></i><span>My Pen</span></a>
     <a href="" target="_blank"><i class="fa fa-twitter"></i><span>Follow</span></a>
     <a class="mailto" href="" target="_top"><i class="fa fa-briefcase"></i><span>Hire me</span></a>
-  </div>
+  </div> -->
 </div>
 
   <!-- facebook boxed layout -->
   <div class="container">
     <div class="box">
-      <div class="header"><a href="#">Awesome dude</a> Comment
-        <div class="date">21. Januar 2015</div>
+      <div class="header"><a class="name" href="#">Awesome dude</a> Comment
+        <div class="date">Date here</div>
       </div>
       <div class="body">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</div>
       <div class="links"><a href="#">Link</a></div>
-      <div class="footer-com">This is a Footer</div>
+      <div class="footer-com"></div>
     </div>
     <div class="box">
-      <div class="header"><a href="#">Awesome dude</a> Comment
-        <div class="date">21. Januar 2015</div>
+      <div class="header"><a class="name" href="#">Awesome dude</a> Comment
+        <div class="date">Date here</div>
       </div>
       <div class="body">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</div>
       <div class="links"><a href="#">Link</a></div>
-      <div class="footer-com">This is a Footer</div>
+      <div class="footer-com"></div>
     </div>
     <div class="box blue">
-      <div class="header"><a href="#">Awesome dude</a> Comment
-        <div class="date">21. Januar 2015</div>
+      <div class="header"><a class="name" href="#">Awesome dude</a> Comment
+        <div class="date">Date here</div>
       </div>
       <div class="body">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</div>
       <div class="links"><a href="#">Link</a></div>
-      <div class="footer-com">This is a Footer</div>
+      <div class="footer-com"></div>
     </div>
   </div>
 
@@ -241,12 +213,10 @@
   the JavaScript SDK to present a graphical Login button that triggers
   the FB.login() function when clicked.
 -->
-
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+<fb:login-button scope="public_profile,email,birthday" onlogin="checkLoginState();">
 </fb:login-button>
 
-<div id="status">
-</div>
+<div id="status"></div>
 
   <footer>
     <div class="row">
@@ -257,6 +227,25 @@
   </footer>
 
 <script type="text/javascript">
+var today = new Date(),
+    dd = today.getDate(),
+    mm = today.getMonth()+1,
+    yyyy = today.getFullYear();
+
+if (dd < 10) {
+    dd = '0'+dd;
+}
+
+if (mm < 10) {
+    mm ='0'+mm;
+}
+
+month = today.toLocaleString("en-us", { month: "long" });
+
+today = dd + ' ' + month + ' ' + yyyy;
+
+$('.date').text(today);
+
 $(function () {
   $('.right-menu a').click(function(){
     $(this).siblings().removeClass('active');

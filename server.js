@@ -10,8 +10,8 @@ var bodyParser = require('body-parser');
 var routes = require('./server/index/indexRouter');
 // var blackMarket = require('./server/blackMarket/blackMarketRouter');
 
-var mongoose = require('mongoose');
-var databaseURI = 'mongodb://localhost/test';
+// var mongoose = require('mongoose');
+// var databaseURI = 'mongodb://localhost/test';
 // TODO: need to use process.env.NODE_ENV
 
 // mongoose.connect(databaseURI, function (error) {

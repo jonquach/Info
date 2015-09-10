@@ -10,7 +10,7 @@ body {
 }
 
 .container {
-  width: 400px;
+  width: 850px;
   margin: 0 auto;
 }
 
@@ -106,7 +106,7 @@ a:focus {
 
 body {
   font: normal 14px/20px 'Open Sans', sans-serif;
-  background: url('https://2.bp.blogspot.com/-QCNLvg32ulU/VaOWslE-aXI/AAAAAAAAGAc/KYWYae8-hFA/s1600/background.jpg') no-repeat center center fixed;
+  background: url('/img/blur.png') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
