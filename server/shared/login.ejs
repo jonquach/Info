@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="blackMarket">
+<head>
+  <meta charset="utf-8">
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="shortcut icon" href="favicon.png" />
+  <link rel="stylesheet" type="text/css" href="/vendors/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css" />
+  <link rel="stylesheet" type="text/css" href="/vendors/normalize.css/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="/css/login.css" />
+  <script type="text/javascript" src="/vendors/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+<script>
+  // This is called with the results from from FB.getLoginStatus().
+  function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      testAPI();
+    } else if (response.status === 'not_authorized') {
+      // The person is logged into Facebook, but not your app.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this app.';
+    } else {
+      // The person is not logged into Facebook, so we're not sure if
+      // they are logged into this app or not.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into Facebook.';
+    }
+  }
+
+  // This function is called when someone finishes with the Login
+  // Button.  See the onlogin handler attached to it in the sample
+  // code below.
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1629239127356735',
+        xfbml      : true,
+        version    : 'v2.4'
+      });
+
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+
+  };
+
+  function fb_login(){
+    FB.login(function(response) {
+        if (response.authResponse) {
+            console.log('Welcome!  Fetching your information fb_login()... ');
+            FB.api('/me', function(response) {
+                console.log('Good to see you, ' + response.name + '.');
+            });
+            var url = window.location.href.replace(location.href, '');
+            if (url === "http://localhost:3000/") {
+              window.location.replace("http://localhost:3000/profile");
+            } else {
+              window.location.replace("https://info-dev.herokuapp.com/profile");
+            }
+        } else {
+            console.log('User cancelled login or did not fully authorize.');
+        }
+    }, {
+        scope: 'public_profile,email'
+    });
+  }
+
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  // Here we run a very simple test of the Graph API after login is
+  // successful.  See statusChangeCallback() for when this call is made.
+  function testAPI() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me?fields=name,email,age_range,birthday', function(response) {
+      console.log('Successful login for: ' + response.name);
+      console.log(JSON.stringify(response));
+      document.getElementById('status').innerHTML =
+        'Thanks for logging in, ' + response.name + '!';
+    });
+  }
+
+    // Get profile picture
+  function getProfilePicture() {
+    console.log('Welcome!  Fetching your profile picture.... ');
+    FB.api('/me/picture?width=150&height=150', function(response) {
+    });
+  }
+</script>
+  <div class="background">
+    <div class="dot"></div>
+  </div>
+
+<div class="cont">
+  <div class="demo">
+    <div class="login">
+      <img src="/img/info_logo.svg" alt="" class="info-logo">
+      <!-- <div class="login__check"></div> -->
+      <div class="login__form">
+        <!-- <div class="login__row">
+          <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+            <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+          </svg>
+          <input type="text" class="login__input name" placeholder="Username" />
+        </div>
+        <div class="login__row">
+          <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
+            <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
+          </svg>
+          <input type="password" class="login__input pass" placeholder="Password" />
+        </div> -->
+
+        <p class="test">
+          Demo time!
+        </p>
+
+        <button scope="public_profile,email" type="button" class="login__submit" onclick="fb_login();" onlogin="checkLoginState();">Sign in</button>
+        <!-- <button type="button" class="login__submit" onclick="fb_login();" onlogin="checkLoginState();">Sign in</button> -->
+        <div id="status" class="test"></div>
+        <!-- <p class="login__signup">Don't have an account? &nbsp;<a>Sign up</a></p> -->
+      </div>
+    </div>
+    <div class="app">
+      <div class="app__top">
+        <div class="app__menu-btn">
+          <span></span>
+        </div>
+        <svg class="app__icon search svg-icon" viewBox="0 0 20 20">
+          <!-- yeap, its purely hardcoded numbers straight from the head :D (same for svg above) -->
+          <path d="M20,20 15.36,15.36 a9,9 0 0,1 -12.72,-12.72 a 9,9 0 0,1 12.72,12.72" />
+        </svg>
+        <p class="app__hello">Good Morning!</p>
+        <div class="app__user">
+          <img src="http://i.imgur.com/joyWJEY.jpg" alt="" class="app__user-photo" />
+          <span class="app__user-notif">3</span>
+        </div>
+        <div class="app__month">
+          <span class="app__month-btn left"></span>
+          <p class="app__month-name">March</p>
+          <span class="app__month-btn right"></span>
+        </div>
+      </div>
+      <div class="app__bot">
+        <div class="app__days">
+          <div class="app__day weekday">Sun</div>
+          <div class="app__day weekday">Mon</div>
+          <div class="app__day weekday">Tue</div>
+          <div class="app__day weekday">Wed</div>
+          <div class="app__day weekday">Thu</div>
+          <div class="app__day weekday">Fri</div>
+          <div class="app__day weekday">Sad</div>
+          <div class="app__day date">8</div>
+          <div class="app__day date">9</div>
+          <div class="app__day date">10</div>
+          <div class="app__day date">11</div>
+          <div class="app__day date">12</div>
+          <div class="app__day date">13</div>
+          <div class="app__day date">14</div>
+        </div>
+        <div class="app__meetings">
+          <div class="app__meeting">
+            <img src="http://i.imgur.com/joyWJEY.jpg" alt="" class="app__meeting-photo" />
+            <p class="app__meeting-name">Feed the cat</p>
+            <p class="app__meeting-info">
+              <span class="app__meeting-time">8 - 10am</span>
+              <span class="app__meeting-place">Real-life</span>
+            </p>
+          </div>
+          <div class="app__meeting">
+            <img src="http://i.imgur.com/joyWJEY.jpg" alt="" class="app__meeting-photo" />
+            <p class="app__meeting-name">Feed the cat!</p>
+            <p class="app__meeting-info">
+              <span class="app__meeting-time">1 - 3pm</span>
+              <span class="app__meeting-place">Real-life</span>
+            </p>
+          </div>
+          <div class="app__meeting">
+            <img src="http://i.imgur.com/joyWJEY.jpg" alt="" class="app__meeting-photo" />
+            <p class="app__meeting-name">FEED THIS CAT ALREADY!!!</p>
+            <p class="app__meeting-info">
+              <span class="app__meeting-time">This button is just for demo ></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="app__logout">
+        <svg class="app__logout-icon svg-icon" viewBox="0 0 20 20">
+          <path d="M6,3 a8,8 0 1,0 8,0 M10,0 10,12" />
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="/js/login.js"></script>
+</body>
+</html>
