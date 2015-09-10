@@ -38,6 +38,23 @@
     }
   }
 
+  function redirectoProfile () {
+    var url = window.location.href.replace(location.href, '');
+    if (url === "http://localhost:3000/") {
+      window.location.replace("http://localhost:3000/profile");
+    } else {
+      window.location.replace("https://info-dev.herokuapp.com/profile");
+    }
+  }
+
+  function clickSignIn () {
+    $('.login__submit').click();
+
+    setTimeout(function () {
+      redirectoProfile();
+    }, 500);
+  }
+
   // This function is called when someone finishes with the Login
   // Button.  See the onlogin handler attached to it in the sample
   // code below.
@@ -66,13 +83,8 @@
             console.log('Welcome!  Fetching your information fb_login()... ');
             FB.api('/me', function(response) {
                 console.log('Good to see you, ' + response.name + '.');
+                redirectoProfile();
             });
-            var url = window.location.href.replace(location.href, '');
-            if (url === "http://localhost:3000/") {
-              window.location.replace("http://localhost:3000/profile");
-            } else {
-              window.location.replace("https://info-dev.herokuapp.com/profile");
-            }
         } else {
             console.log('User cancelled login or did not fully authorize.');
         }
@@ -99,6 +111,7 @@
       console.log(JSON.stringify(response));
       document.getElementById('status').innerHTML =
         'Thanks for logging in, ' + response.name + '!';
+      clickSignIn();
     });
   }
 
